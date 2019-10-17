@@ -7,29 +7,30 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 
 public class Client {
 
-	public static void main(String[] args) {
-		try {
-			Socket socket = new Socket("localhost", 23456);
+	public static void main(String[] args) throws IOException {
+		Socket socket = new Socket("localhost", 23456);
+		OutputStream os = socket.getOutputStream();
 
-			PrintWriter pw = new PrintWriter(socket.getOutputStream()); 
-			pw.println("This is your message back in capital letters");
-			pw.flush();
-			
-			InputStreamReader in = new InputStreamReader(socket.getInputStream());
-			BufferedReader bf = new BufferedReader(in);
-			
-			String str = bf.readLine();
-			System.out.println("server:" + str);
-			
-		}catch (IOException e) {
-			System.err.println("this is the client error");
-		}
+		PrintWriter pw = new PrintWriter(socket.getOutputStream()); 
+		pw.println("This is your message back in capital letters");
+		pw.flush();
+		
+		
+		InputStreamReader in = new InputStreamReader(socket.getInputStream());
+		BufferedReader bf = new BufferedReader(in);
 		
 
+		String str = bf.readLine();
+		System.out.println("server:" + str);
+		
+		os.write(7);
+		
+		System.out.println("server:" + bf.readLine());
+		socket.close();
 	}
-
 }
