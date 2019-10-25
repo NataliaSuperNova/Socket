@@ -1,0 +1,40 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Scanner;
+import java.util.stream.Stream;
+
+
+public class Client {
+
+	public static void main(String[] args) throws IOException {
+		Socket socket = new Socket("localhost", 23456);
+		OutputStream os = socket.getOutputStream();
+		InputStreamReader in = new InputStreamReader(socket.getInputStream());
+		BufferedReader bf = new BufferedReader(in);
+		PrintWriter pw = new PrintWriter(socket.getOutputStream());
+		Scanner sc = new Scanner(System.in);
+		String input;
+
+		System.out.println("Please enter a command from the following list: \n" +
+				"- upper [string] = returns upperCase value of the argument inputted. \n" +
+				"- double [int] = returns double the value of the integer inputted \n" +
+				"- getFirstName [firstname] [surname] = returns firstname when firstname and surname is inputted \n" +
+				"- square [int] = returns square value of the integer inputted");
+
+		while(!(input = sc.nextLine()).equals("exit")) {
+			pw.println(input);
+			pw.flush();
+
+			String str = bf.readLine();
+			System.out.println("server:" + str);
+
+		}
+		socket.close();
+	}
+}
