@@ -1,0 +1,57 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.net.*;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
+
+public class Server {
+    public static void main(String[] args) throws IOException {
+        DatagramSocket socket = new DatagramSocket(23456);
+        InetAddress ip = InetAddress.getLocalHost();
+        byte[] receive = new byte[65535];
+
+        DatagramPacket DpReceive = null;
+        while (true) {
+            DpReceive = new DatagramPacket(receive, receive.length);
+            socket.receive(DpReceive);
+
+
+
+            String Upper = new String(receive).toUpperCase();
+            System.out.println(Upper);
+
+            byte upperInBytes[] = Upper.getBytes();
+
+            DatagramPacket DpSend = new DatagramPacket(upperInBytes, upperInBytes.length,ip,23456);
+            socket.send(DpSend);
+
+
+
+
+
+//            Socket connectionSocket = serverSocket.accept(); // wait for a connection
+//
+//            System.out.println("client connected");
+//
+//            InputStreamReader in = new InputStreamReader(connectionSocket.getInputStream());
+//            BufferedReader bf = new BufferedReader(in);
+//
+//
+//            String str = bf.readLine();
+//            System.out.println("client:" + str);
+//
+//            PrintWriter pw = new PrintWriter(connectionSocket.getOutputStream());
+//            pw.println(str.toUpperCase());
+//            pw.flush();
+//
+//            int clientNum = bf.read();
+//            System.out.println(clientNum);
+//            pw.println(clientNum*2);
+//            pw.flush();
+        }
+    }
+}
