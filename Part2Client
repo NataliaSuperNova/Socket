@@ -1,0 +1,37 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.net.*;
+import java.util.Scanner;
+import java.util.stream.Stream;
+
+public class Client {
+
+    public static void main(String[] args) throws IOException {
+        DatagramSocket socket = new DatagramSocket();
+        InetAddress ip = InetAddress.getLocalHost();
+        byte strInBytes[] = null;
+
+        String str = "This is your message back in capital letters";
+        strInBytes = str.getBytes();
+
+        DatagramPacket DpSend = new DatagramPacket(strInBytes, strInBytes.length, ip, 23456);
+        socket.send(DpSend);
+
+
+        byte[] receive = new byte[65535];
+
+        DatagramPacket DpReceive = null;
+        while (true) {
+            DpReceive = new DatagramPacket(receive, receive.length);
+            socket.receive(DpReceive);
+
+
+            String Upper = new String(receive).toUpperCase();
+            System.out.println(Upper);
+        }
+    }
+}
