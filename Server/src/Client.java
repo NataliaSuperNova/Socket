@@ -12,25 +12,32 @@ import java.util.stream.Stream;
 
 public class Client {
 
-	public static void main(String[] args) throws IOException {
-		Socket socket = new Socket("localhost", 23456);
-		OutputStream os = socket.getOutputStream();
+    public static void main(String[] args) throws IOException {
+        Socket socket = new Socket("localhost", 24356);
+        OutputStream os = socket.getOutputStream();
+        PrintWriter pw = new PrintWriter(socket.getOutputStream());
+        Scanner sc = new Scanner(System.in);
 
-		PrintWriter pw = new PrintWriter(socket.getOutputStream()); 
-		pw.println("This is your message back in capital letters");
-		pw.flush();
-		
-		
-		InputStreamReader in = new InputStreamReader(socket.getInputStream());
-		BufferedReader bf = new BufferedReader(in);
-		
+        System.out.println("Please enter a word or sentence you would like back in capitals..");
 
-		String str = bf.readLine();
-		System.out.println("server:" + str);
-		
-		os.write(7);
-		
-		System.out.println("server:" + bf.readLine());
-		socket.close();
-	}
+        String makeCaps = sc.nextLine();
+
+        pw.println(makeCaps);
+        pw.flush();
+
+
+        InputStreamReader in = new InputStreamReader(socket.getInputStream());
+        BufferedReader bf = new BufferedReader(in);
+
+
+        String str = bf.readLine();
+        System.out.println("server:" + str);
+
+        System.out.println("and now enter a number you want doubled..");
+        int doubleMe = sc.nextInt();
+        os.write(doubleMe);
+
+        System.out.println("server:" + bf.readLine());
+        socket.close();
+    }
 }
