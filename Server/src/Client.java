@@ -1,13 +1,10 @@
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
-import java.util.stream.Stream;
 
 
 public class Client {
@@ -38,6 +35,7 @@ public class Client {
         os.write(doubleMe);
 
         System.out.println("server:" + bf.readLine());
+        sc.close();
         socket.close();
     }
 }
