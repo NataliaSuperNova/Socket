@@ -1,5 +1,3 @@
-package Part2;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -14,7 +12,7 @@ public class Part2Client {
         InetAddress ip = InetAddress.getLocalHost();
 
 
-        System.out.println("Enter a word or sentence you would like back in capitals.");
+        System.out.println("Enter a word or sentence you would like back in capitals or enter a number you would like doubled");
         InputStreamReader inputStreamReader = new InputStreamReader(System.in);
         BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
         String message = bufferedReader.readLine().trim();
