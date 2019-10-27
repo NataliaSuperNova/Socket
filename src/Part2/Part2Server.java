@@ -22,9 +22,8 @@ public class Part2Server {
             System.out.println("client: " + input);
 
             try {
-                int i = Integer.parseInt(input);
-                i = 2 * i;
-                input = Integer.toString(i);
+                int doubled = Integer.parseInt(input) * 2;
+                input = Integer.toString(doubled);
                 System.out.println(input);
 
             } catch (NumberFormatException e) {
